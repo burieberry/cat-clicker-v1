@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="utf-8">
+  <title>Cat Clicker V1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+
+    body {
+      margin: 30px auto;
+      width: 1440px;
+      max-width: 100%;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    h1,
+    h2  {
+      text-align: center;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.2em;
+    }
+
+    #cat-container {
+      display: flex;
+      flex-wrap: wrap;
+      list-style-type: none;
+      margin: 30px auto;
+    }
+
+    .cat {
+      width: 50%;
+      padding: 0 10px;
+    }
+  </style>
+</head>
+<body>
+<h1>Cat Clicker</h1>
+<h2><em>Click on the cats!</em></h2>
+<ul id="cat-container">
+</ul>
+</body>
+<script>
+
+  var Cat = function(name, counter, para, img) {
+    'use strict';
+    this.name = name;
+    this.counter = counter;
+    this.para = para;
+    this.img = img;
+  }
+
+  var cats = ['fred', 'ivy'];
+
+  var fred = new Cat('Fred', 0, 'para1', 'fred-cat.jpg');
+  cats[0] = fred;
+
+  var ivy = new Cat('Ivy', 0, 'para2', 'ivy-cat.jpg');
+  cats[1] = ivy;
+
+  console.log(cats);
+
+  function renderCats() {
+    cats.forEach(function(cat) {
+      var catItem = document.createElement('li');
+      var catImg = document.createElement('img');
+      catImg.setAttribute('src', cat.img);
+      catImg.setAttribute('id', cat.name);
+
+      catItem.appendChild(catImg);
+      catItem.classList.add('cat');
+
+      var catName = document.createElement('h3');
+      catName.textContent = 'Hello, my name is ' + cat.name;
+      catItem.appendChild(catName);
+
+      var catCounter = document.createElement('p');
+      catCounter.setAttribute('id', cat.para);
+      catCounter.textContent = 'Click Count: ' + cat.counter;
+      catItem.appendChild(catCounter);
+
+      document.getElementById('cat-container').appendChild(catItem);
+    });
+  }
+
+  renderCats();
+
+  function clickCounter() {
+    cats.forEach(function(cat) {
+      document.getElementById('' + cat.name).addEventListener('click', function() {
+        cat.counter++;
+        document.getElementById('' + cat.para).textContent = 'Click Count: ' + cat.counter;
+      });
+    });
+  }
+
+  clickCounter();
+
+</script>
+</html>
